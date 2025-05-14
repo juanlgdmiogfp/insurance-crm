@@ -1,8 +1,5 @@
 import { TypeGuard, Type, TSchema, TIntersect, TUnion, TObject, TPartial, TProperties, Evaluate, Static } from '@sinclair/typebox'
 
-// -------------------------------------------------------------------------------------
-// TPartialDeepProperties
-// -------------------------------------------------------------------------------------
 export type TPartialDeepProperties<T extends TProperties> = {
     [K in keyof T]: TPartialDeep<T[K]>
 }
@@ -11,9 +8,7 @@ function PartialDeepProperties<T extends TProperties>(properties: T): TPartialDe
         return { ...acc, [key]: PartialDeep(properties[key]) }
     }, {}) as never
 }
-// -------------------------------------------------------------------------------------
-// TPartialDeepRest
-// -------------------------------------------------------------------------------------
+
 export type TPartialDeepRest<T extends TSchema[], Acc extends TSchema[] = []> = (
     T extends [infer L extends TSchema, ...infer R extends TSchema[]]
     ? TPartialDeepRest<R, [...Acc, TPartialDeep<L>]>
@@ -22,9 +17,7 @@ export type TPartialDeepRest<T extends TSchema[], Acc extends TSchema[] = []> = 
 function PartialDeepRest<T extends TSchema[]>(rest: [...T]): TPartialDeepRest<T> {
     return rest.map(schema => PartialDeep(schema)) as never
 }
-// -------------------------------------------------------------------------------------
-// TPartialDeep
-// -------------------------------------------------------------------------------------
+
 export type TPartialDeep<T extends TSchema> =
     T extends TIntersect<infer S> ? TIntersect<TPartialDeepRest<S>> :
     T extends TUnion<infer S> ? TUnion<TPartialDeepRest<S>> :

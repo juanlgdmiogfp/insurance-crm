@@ -1,3 +1,5 @@
+[Russian](README-RU.md)
+
 # insurance-crm
 The project is a customer relationship management system for insurance companies.
 Implemented on `Node.js` using `Fastify`, `Prisma ORM`, `PostgreSQL`.

@@ -2,10 +2,10 @@
 
 # insurance-crm
 The project is a customer relationship management system for insurance companies.
-Implemented on `Node.js` using `Fastify`, `Prisma ORM`, `PostgreSQL`.
+Implemented on Node.js using `Fastify`, `Prisma ORM`, `PostgreSQL`.
 
 ## Starting the project with docker
-To start working with the project, you need docker with images `node:latest`, `nginx:latest`, `postgresql:latest`.
+To start working with the project, you need docker with images `node:latest`, `nginx:latest`, `postgres:latest`.
 Nginx acts as a reverse proxy server.
 
 To clone a repository enter the command:

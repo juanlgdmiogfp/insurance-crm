@@ -1,4 +1,4 @@
-[Russian](README-RU.md)
+[Russian](README.md)
 
 # insurance-crm
 The project is a customer relationship management system for insurance companies.

